@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Release.Name }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: test-runner
+      image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+      command: ["pytest"]
+      env:
+        - name: FLASK_RUN_HOST
+          value: "0.0.0.0"
+      restartPolicy: Never

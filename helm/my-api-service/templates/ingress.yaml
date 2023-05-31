@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  labels:
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    helm.sh/chart: {{ .Chart.Name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  rules:
+    - host: my-api-service.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}
+                port:
+                  number: 80
