@@ -1,7 +1,7 @@
 # Makefile for API Service
 
 # Variables
-APP_NAME := api-service
+APP_NAME := my-api-service
 IMAGE_NAME := hashemabusara/$(APP_NAME)
 TAG := latest
 HELM_RELEASE := $(APP_NAME)-release
@@ -28,3 +28,7 @@ clean:
 deploy:
 	@echo "Deploying $(APP_NAME) using Helm..."
 	helm upgrade --install $(HELM_RELEASE) ./helm/$(APP_NAME)
+
+uninstall:
+	@echo "uninstall $(APP_NAME) using Helm..."
+	helm uninstall $(HELM_RELEASE) ./helm/$(APP_NAME)
